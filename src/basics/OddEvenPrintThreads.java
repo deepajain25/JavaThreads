@@ -19,8 +19,8 @@ class OddThread implements Runnable {
 
     @Override
     public void run() {
-        while (data.num < 10) {
-            synchronized (data) {
+        synchronized (data) {
+            while (data.num < 10) {
                 while (data.num % 2 == 0) {
                     try {
                         data.wait();
@@ -29,8 +29,8 @@ class OddThread implements Runnable {
                     }
                 }
                 System.out.println(Thread.currentThread().getName() + " " + data);
-                data.num++;
                 data.notifyAll();
+                data.num++;
             }
         }
 
@@ -46,8 +46,8 @@ class EvenThread implements Runnable {
 
     @Override
     public void run() {
-        while (data.num < 10) {
-            synchronized (data) {
+        synchronized (data) {
+            while (data.num < 10) {
                 if (data.num % 2 != 0) {
                     try {
                         data.wait();
@@ -57,9 +57,8 @@ class EvenThread implements Runnable {
                 }
 
                 System.out.println(Thread.currentThread().getName() + " " + data);
-                data.num++;
                 data.notifyAll();
-
+                data.num++;
             }
         }
     }
